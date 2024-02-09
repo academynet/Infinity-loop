@@ -1,0 +1,61 @@
+body  {
+    background: #1e1b1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+[class^="particle"] {
+    position: absolute;
+    animation: inf-anim 4.5s infinite linear;
+    border: 1px solid #33d39d;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    opacity: 0;
+}
+
+@for $i from 1 through 10 { 
+    .particle:nth-child(#{$i})  {
+        animation-delay: $i * 0.25s;
+    }
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 180deg;
+    inherits: true;
+}
+
+@keyframes inf-anim { 
+    0% {
+        --angle: 180deg;
+        --radius: 200px;
+        translate: 
+            calc(cos(var(--angle)) * var(--radius))
+            calc(sin(var(--angle)) * var(--radius) * -1);
+        opacity: 1;
+    }
+
+    50% { 
+        --angle: 0deg;
+        --radius: 200px;
+        translate: 
+        calc(cos(var(--angle)) * var(--radius))
+        calc(sin(var(--angle)) * var(--radius) * 1);
+        opacity: 1;
+    }
+
+    100% {
+        --angle: -180deg;
+        --radius: 200px;
+        translate: 
+        calc(cos(var(--angle)) * var(--radius))
+        calc(sin(var(--angle)) * var(--radius) * -1);
+        opacity: 1;
+    }
+}
